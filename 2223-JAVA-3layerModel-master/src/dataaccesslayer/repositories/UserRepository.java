@@ -25,7 +25,7 @@ public class UserRepository {
     }
 
     public static User getUserById(int userId) throws SQLException{
-        User guest = new User();
+        User user = new User();
 
         String commandString = "SELECT * FROM Users WHERE Id = @userId";
 
