@@ -1,11 +1,13 @@
 package dataaccesslayer.repositories;
 
+import models.Book;
 import models.Reservation;
 import models.Category;
 import utils.DBConnection;
 
 import java.sql.*;
 import java.util.List;
+import java.util.Scanner;
 
 public class ReservationRepository {
     public static List<Reservation> getReservations() throws SQLException{
@@ -39,45 +41,51 @@ public class ReservationRepository {
         return mapToReservation(resultSet);
     }
 
-    public static void insertIntoBook(String title, String author, int year, Category category) throws SQLException{
-        if(CategoryRepository.getCategoryById(category.getId()) == null) {
-            CategoryRepository.insertIntoCategory(category);
-        }
-
-        Book book = new Book();
-
-        String commandString = "INSERT INTO Books(Title, Author, [Year], CategoryID) VALUES (?, ?, ?, ?)";
+    public static void insertIntoReservation(Reservation reservation) throws SQLException{
+        String commandString = "INSERT INTO Reservations(BookId, UserId, ReservationDate) VALUES (?, ?, ?)";
 
         Connection connection = DBConnection.getConnection();
 
         PreparedStatement statement = connection.prepareStatement(commandString);
-        statement.setString(1, book.getTitle());
-        statement.setString(2, book.getAuthor());
-        statement.setInt(3, book.getYear());
-        statement.setInt(4, category.getId());
+        statement.setInt(1, reservation.getBookId());
+        statement.setInt(2, reservation.getUserId());
+        statement.setDate(3, (Date) reservation.getReservationDate());
 
         statement.executeUpdate();
     }
 
-    public static void deleteBook(Book book) throws SQLException{
-        String commandString = "DELETE FROM Books WHERE Id = ?";
+    public static void updateReservation(Reservation reservation) throws SQLException{
+        String commandString = "UPDATE Reservations SET(BookId = ?, UserId = ?, ReservationDate = ?) WHERE Id = ?";
 
         Connection connection = DBConnection.getConnection();
 
         PreparedStatement statement = connection.prepareStatement(commandString);
 
-        statement.setInt(1, book.getId());
+        statement.setInt(1, reservation.getBookId());
+        statement.setInt(2, reservation.getUserId());
+        statement.setDate(3, (Date) reservation.getReservationDate());
+        statement.setInt(0, reservation.getId());
+
+        statement.executeUpdate();
+    }
+    public static void deleteReservation(Reservation reservation) throws SQLException{
+        String commandString = "DELETE FROM Reservations WHERE Id = ?";
+
+        Connection connection = DBConnection.getConnection();
+
+        PreparedStatement statement = connection.prepareStatement(commandString);
+
+        statement.setInt(1, reservation.getId());
 
         statement.executeUpdate();
     }
 
-    public static Book mapToReservation(ResultSet resultSet) throws SQLException{
-        Book book = new Book();
-        book.setId(resultSet.getInt(0));
-        book.setTitle(resultSet.getString(1));
-        book.setAuthor(resultSet.getString(2));
-        book.setYear(resultSet.getInt(3));
-        book.setCategoryId(resultSet.getInt(4));
-        return book;
+    public static Reservation mapToReservation(ResultSet resultSet) throws SQLException{
+        Reservation reservation = new Reservation();
+        reservation.setId(resultSet.getInt(0));
+        reservation.setBookId(resultSet.getInt(1));
+        reservation.setUserId(resultSet.getInt(2));
+        reservation.setReservationDate(resultSet.getDate(3));
+        return reservation;
     }
 }

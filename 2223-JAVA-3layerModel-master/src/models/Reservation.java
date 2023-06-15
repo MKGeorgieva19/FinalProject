@@ -4,14 +4,14 @@ import java.util.Date;
 
 public class Reservation {
     private int id;
-    private Book bookId;
-    private User userId;
+    private int bookId;
+    private int userId;
     private Date reservationDate;
 
     public Reservation() {
     }
 
-    public Reservation(int reservationId, Book bookId, User memberId, Date reservationDate) {
+    public Reservation(int reservationId, int bookId, int memberId, Date reservationDate) {
         this.id = reservationId;
         this.bookId = bookId;
         this.userId = memberId;
@@ -26,19 +26,19 @@ public class Reservation {
         this.id = id;
     }
 
-    public Book getBookId() {
+    public int getBookId() {
         return bookId;
     }
 
-    public void setBookId(Book bookId) {
+    public void setBookId(int bookId) {
         this.bookId = bookId;
     }
 
-    public User getUserId() {
+    public int getUserId() {
         return userId;
     }
 
-    public void setUserId(User userId) {
+    public void setUserId(int userId) {
         this.userId = userId;
     }
 

@@ -6,6 +6,9 @@ import utils.DBConnection;
 
 import java.sql.*;
 import java.util.List;
+import java.util.Scanner;
+
+import static java.lang.System.*;
 
 public class BookRepository {
     public static List<Book> getBooks() throws SQLException{
@@ -39,13 +42,7 @@ public class BookRepository {
         return mapToBook(resultSet);
     }
 
-    public static void insertIntoBook(String title, String author, int year, Category category) throws SQLException{
-        if(CategoryRepository.getCategoryById(category.getId()) == null) {
-            CategoryRepository.insertIntoCategory(category);
-        }
-
-        Book book = new Book();
-
+    public static void insertIntoBook(Book book) throws SQLException{
         String commandString = "INSERT INTO Books(Title, Author, [Year], CategoryID) VALUES (?, ?, ?, ?)";
 
         Connection connection = DBConnection.getConnection();
@@ -54,7 +51,23 @@ public class BookRepository {
         statement.setString(1, book.getTitle());
         statement.setString(2, book.getAuthor());
         statement.setInt(3, book.getYear());
-        statement.setInt(4, category.getId());
+        statement.setInt(4, book.getCategoryId());
+
+        statement.executeUpdate();
+    }
+
+    public static void updateBook(Book book) throws SQLException{
+        String commandString = "UPDATE Books SET(Title = ?, Author = ?, [Year] = ?, CategoryID = ?) WHERE Id = ?";
+
+        Connection connection = DBConnection.getConnection();
+
+        PreparedStatement statement = connection.prepareStatement(commandString);
+
+        statement.setString(1, book.getTitle());
+        statement.setString(2, book.getAuthor());
+        statement.setInt(3, book.getYear());
+        statement.setInt(4, book.getCategoryId());
+        statement.setInt(0, book.getId());
 
         statement.executeUpdate();
     }
