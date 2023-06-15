@@ -1,32 +1,34 @@
 CREATE DATABASE FinalProject
 USE FinalProject
 
+
+
 create table Books (
-	Id INT PRIMARY KEY,
-	[Name] VARCHAR(50),
-	Autor VARCHAR(50),
-	[Date] DATE
+	Id INT,
+	Title VARCHAR(50),
+	Author VARCHAR(50),
+	[Year] VARCHAR(50)
 );
-insert into Books (Id, [Name], Autor, [Date]) values (1, 'Antibiotic', 'Nil Lakin', '1/24/2009');
-insert into Books (Id, [Name], Autor, [Date]) values (2, 'Ortho-K Thick', 'Dorolice Merman', '11/2/2015');
-insert into Books (Id, [Name], Autor, [Date]) values (3, 'Gemcitabine', 'Rhonda Owbrick', '7/27/1986');
-insert into Books (Id, [Name], Autor, [Date]) values (4, 'Molds, Rusts and Smuts, Curvularia spicifera', 'Evyn Becom', '11/27/2005');
-insert into Books (Id, [Name], Autor, [Date]) values (5, 'Venlafaxine Hydrochloride', 'Frederik Crowne', '2/14/1982');
-insert into Books (Id, [Name], Autor, [Date]) values (6, 'Burrobrush', 'Kaylil Tschirschky', '5/12/2000');
-insert into Books (Id, [Name], Autor, [Date]) values (7, 'Vancomycin HCl', 'Aurora Madgin', '1/6/1987');
-insert into Books (Id, [Name], Autor, [Date]) values (8, 'Enviroclenz', 'Joanna Blackborn', '10/13/2020');
-insert into Books (Id, [Name], Autor, [Date]) values (9, 'Pleo Fort', 'Carlo Ryley', '5/27/2016');
-insert into Books (Id, [Name], Autor, [Date]) values (10, 'Treatment Set TS333176', 'Codee Minghella', '9/16/1971');
-insert into Books (Id, [Name], Autor, [Date]) values (11, 'Aspirin', 'Othello Barron', '6/14/2021');
-insert into Books (Id, [Name], Autor, [Date]) values (12, 'Nutropin AQ NuSpin 10', 'Kaleb McGahey', '10/22/1975');
-insert into Books (Id, [Name], Autor, [Date]) values (13, 'GlycoPan Tox', 'Cristine Decort', '10/21/1976');
-insert into Books (Id, [Name], Autor, [Date]) values (14, 'Sore Throat', 'Giffard Opie', '6/5/2011');
-insert into Books (Id, [Name], Autor, [Date]) values (15, 'Haloperidol', 'Edee Swanton', '2/6/2015');
-insert into Books (Id, [Name], Autor, [Date]) values (16, 'Squash Zucchini', 'Esme Thaller', '12/12/1983');
-insert into Books (Id, [Name], Autor, [Date]) values (17, 'Synovium', 'Brnaby Emmanuel', '8/16/1992');
-insert into Books (Id, [Name], Autor, [Date]) values (18, 'Clorazepate Dipotassium', 'Connie Lindenman', '11/8/1970');
-insert into Books (Id, [Name], Autor, [Date]) values (19, 'Tranexamic Acid', 'Stern Marcinkus', '2/20/1995');
-insert into Books (Id, [Name], Autor, [Date]) values (20, 'Halls', 'Shirlee Shory', '9/9/2007');
+insert into Books (Id, Title, Author, [Year]) values (1, 'All American Chump', 'Martino Simonsson', 2008);
+insert into Books (Id, Title, Author, [Year]) values (2, 'Texas Across the River', 'Priscella Pennycock', 1997);
+insert into Books (Id, Title, Author, [Year]) values (3, 'School of Rock', 'Way Traynor', 2007);
+insert into Books (Id, Title, Author, [Year]) values (4, 'Big Blue, The (Grand bleu, Le)', 'Joseito Cowp', 1998);
+insert into Books (Id, Title, Author, [Year]) values (5, 'Elvis and Me', 'Clevey McBeith', 2012);
+insert into Books (Id, Title, Author, [Year]) values (6, 'Earth Dies Screaming, The', 'Sylvan Naish', 1989);
+insert into Books (Id, Title, Author, [Year]) values (7, 'The Studio Murder Mystery', 'Kingsley Snook', 2002);
+insert into Books (Id, Title, Author, [Year]) values (8, 'Schooled: The Price of College Sports ', 'Lizette Kindleside', 2002);
+insert into Books (Id, Title, Author, [Year]) values (9, 'National Velvet', 'Mahmoud Walshaw', 2003);
+insert into Books (Id, Title, Author, [Year]) values (10, 'Flight of the Conchords: A Texan Odyssey', 'Floris Spaxman', 2005);
+insert into Books (Id, Title, Author, [Year]) values (11, 'Two Moon Junction', 'Lyndsay Janssen', 2012);
+insert into Books (Id, Title, Author, [Year]) values (12, 'The Pacific', 'Sile Kinvan', 2005);
+insert into Books (Id, Title, Author, [Year]) values (13, 'Mission Congo', 'Wynn Whitington', 1992);
+insert into Books (Id, Title, Author, [Year]) values (14, 'Make Believe', 'Iona Delete', 2005);
+insert into Books (Id, Title, Author, [Year]) values (15, 'Man Vanishes, A (Ningen Johatsu)', 'Maurene Ledrane', 2010);
+insert into Books (Id, Title, Author, [Year]) values (16, 'Maniac', 'Hollis Rodway', 1993);
+insert into Books (Id, Title, Author, [Year]) values (17, 'Keith Lemon: The Film', 'Ayn Guilfoyle', 2002);
+insert into Books (Id, Title, Author, [Year]) values (18, 'Less of Sugar (Cheeni Kum)', 'Madella Gowrich', 2006);
+insert into Books (Id, Title, Author, [Year]) values (19, 'Paranormal Activity', 'Daniele Delgardillo', 2009);
+insert into Books (Id, Title, Author, [Year]) values (20, 'Beck - Familjen', 'Conn Nicolson', 1986);
 
 create table Users (
 	Id INT PRIMARY KEY,
