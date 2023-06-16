@@ -2,7 +2,8 @@ package models;
 
 public class User {
     private int id;
-    private String name;
+    private String username;
+    private String password;
     private String address;
     private String phone;
     private String email;
@@ -10,9 +11,10 @@ public class User {
     public User() {
     }
 
-    public User(int memberId, String name, String address, String phone, String email) {
-        this.id = memberId;
-        this.name = name;
+    public User(int id, String username, String password, String address, String phone, String email) {
+        this.id = id;
+        this.username = username;
+        this.password = password;
         this.address = address;
         this.phone = phone;
         this.email = email;
@@ -26,12 +28,20 @@ public class User {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getUsername() {
+        return username;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getAddress() {
@@ -56,5 +66,17 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", address='" + address + '\'' +
+                ", phone='" + phone + '\'' +
+                ", email='" + email + '\'' +
+                '}';
     }
 }

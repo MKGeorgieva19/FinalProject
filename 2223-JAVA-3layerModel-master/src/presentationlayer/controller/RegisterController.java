@@ -1,8 +1,11 @@
 package presentationlayer.controller;
 
+import models.User;
 import utils.ConsoleUtils;
 import businesslayer.services.RegisterService;
-import presentationlayer.menus.ErrorMenu;
+import presentationlayer.menu.ErrorMenu;
+
+import java.sql.SQLException;
 
 public class RegisterController {
 	
@@ -14,15 +17,21 @@ public class RegisterController {
         this.regService = RegisterService.getInstance();
     }
 	
-	public void run(){
+	public void run() throws SQLException {
 		
 		while(regService.getCorrectUser() == false) {
-			
-			ConsoleUtils.writeLine("FIRST NAME: ");
-	        String firstName = ConsoleUtils.read();
-	
-	        ConsoleUtils.writeLine("LAST NAME: ");
-	        String lastName = ConsoleUtils.read();
+
+			ConsoleUtils.writeLine("USERNAME: ");
+			String username = ConsoleUtils.read();
+
+			ConsoleUtils.writeLine("PASSWORD: ");
+			String password = ConsoleUtils.read();
+
+			ConsoleUtils.writeLine("ADDRESS: ");
+			String address = ConsoleUtils.read();
+
+			ConsoleUtils.writeLine("PHONE: ");
+			String phone = ConsoleUtils.read();
 	        
 	        ConsoleUtils.writeLine("E-MAIL: ");
 	        String email = ConsoleUtils.read();
@@ -39,13 +48,7 @@ public class RegisterController {
 		        }
 	        }
 	        
-	        ConsoleUtils.writeLine("USERNAME: ");
-	        String username = ConsoleUtils.read();
-	        
-	        ConsoleUtils.writeLine("PASSWORD: ");
-	        String password = ConsoleUtils.read();
-	        
-	        regService.insertUser(firstName, lastName, email, username, password);   
+	        regService.insertUser(username, password, address, phone, email);
 	        
 	        if(regService.getCorrectUser() == false) {
 	        	ErrorMenu.invalidUsername();
@@ -67,7 +70,7 @@ public class RegisterController {
 		}
 	}
 	
-	private void backToMainMenu() {
+	private void backToMainMenu() throws SQLException {
 		MainController mainMenu = new MainController();
 		mainMenu.run();
     }

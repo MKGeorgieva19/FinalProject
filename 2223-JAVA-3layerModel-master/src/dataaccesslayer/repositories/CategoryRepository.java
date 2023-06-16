@@ -4,12 +4,22 @@ import models.Category;
 import utils.DBConnection;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class CategoryRepository {
-    public static List<Category> getCategories() throws SQLException{
-        List<Category> categories = null;
+    private static CategoryRepository instance = null;
+    public static CategoryRepository getInstance() {
 
+        if (CategoryRepository.instance == null) {
+            CategoryRepository.instance = new CategoryRepository();
+        }
+
+        return CategoryRepository.instance;
+    }
+
+    public static List<Category> getAllCategories() throws SQLException{
+        List<Category> categories = new ArrayList<>();
         String commandString = "SELECT * FROM Categories";
 
         Connection connection = DBConnection.getConnection();
@@ -38,15 +48,18 @@ public class CategoryRepository {
         return mapToCategory(resultSet);
     }
 
-    public static void insertIntoCategory(Category category) throws SQLException{
+    public static void insertIntoCategory(String name) throws SQLException{
         String commandString = "INSERT INTO Categories([Name]) VALUES (?)";
 
-        Connection connection = DBConnection.getConnection();
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement statement = conn.prepareStatement(commandString)) {
 
-        PreparedStatement statement = connection.prepareStatement(commandString);
-        statement.setString(1, category.getName());
+            statement.setString(1, name);
 
-        statement.executeUpdate();
+            int rs = statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     public static void updateCategory(Category category) throws SQLException{

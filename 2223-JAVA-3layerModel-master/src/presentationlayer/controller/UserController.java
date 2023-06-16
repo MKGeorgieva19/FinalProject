@@ -1,10 +1,11 @@
 package presentationlayer.controller;
 
+import java.sql.SQLException;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import presentationlayer.menus.ErrorMenu;
-import presentationlayer.menus.ListMenu;
+import presentationlayer.menu.ErrorMenu;
+import presentationlayer.menu.ListMenu;
 import models.User;
 import businesslayer.services.AuthenticationService;
 import businesslayer.services.UserService;
@@ -22,11 +23,11 @@ public class UserController {
 		this.authService = AuthenticationService.getInstance();	
     }
 	
-	public void viewAllUsers() {
+	public void viewAllUsers() throws SQLException {
 		
 		ListMenu.allGenresMenu();
 		
-		List<User> users = userService.getAllUsers();
+		List<User> users = UserService.getAllUsers();
 		
 		ConsoleUtils.writeLine("User names:");
 		ConsoleUtils.writeNewLine();
@@ -35,16 +36,14 @@ public class UserController {
 			ConsoleUtils.writeNewLine();
 			ConsoleUtils.write("User Id: ");
 			ConsoleUtils.writeInteger(user.getId());
-			ConsoleUtils.write(" |  First name: ");
-			ConsoleUtils.write(user.getFirstName());
-			ConsoleUtils.write(" |  Last name: ");
-			ConsoleUtils.write(user.getLastName());
-			ConsoleUtils.write(" |  Email: ");
-			ConsoleUtils.write(user.getEmail());
 			ConsoleUtils.write(" |  Username: ");
 			ConsoleUtils.write(user.getUsername());
 			ConsoleUtils.write(" |  Password: ");
 			ConsoleUtils.write(user.getPassword());
+			ConsoleUtils.write(" |  Phone: ");
+			ConsoleUtils.write(user.getPhone());
+			ConsoleUtils.write(" |  Email: ");
+			ConsoleUtils.write(user.getEmail());
 			ConsoleUtils.writeNewLine();
 		
 		});
@@ -58,7 +57,7 @@ public class UserController {
 		while(true) {
 			switch (option) {
 				case 1: {
-					backToAdminMenu();
+					backToUserMenu();
 					break;
 				}
 				
@@ -67,99 +66,7 @@ public class UserController {
 			}	
 		}	
 	}
-	
-	public void viewAllAdmins() {
-		
-		ListMenu.allGenresMenu();
-		
-		List<User> admins = userService.getAllAdmins();
-		
-		ConsoleUtils.writeLine("User names:");
-		ConsoleUtils.writeNewLine();
-		
-		admins.stream().forEach(admin-> { 
-			
-			System.out.print("User Id: ");
-			System.out.print(admin.getId());
-			System.out.print(" |  First name: ");
-			System.out.print(admin.getFirstName());
-			System.out.print(" |  Last name: ");
-			System.out.print(admin.getLastName());
-			System.out.print(" |  Email: ");
-			System.out.print(admin.getEmail());
-			System.out.print(" |  Username: ");
-			System.out.print(admin.getUsername());
-			System.out.print(" |  Password: ");
-			System.out.print(admin.getPassword());
-			System.out.println();
 
-			
-			});
-		
-		ConsoleUtils.writeNewLine();
-		 
-		ConsoleUtils.writeLine("Press 1 to go back:"); int option = ConsoleUtils.readInteger();
-		System.out.println();
-		
-		while(true) {
-			switch (option) {
-				case 1: {
-					backToAdminMenu();
-					break;
-				}
-				
-				default:
-					ErrorMenu.invalidInputError(); option = ConsoleUtils.readInteger();
-			}	
-		}	
-	}
-	
-	public void deleteUserById() {
-		
-		ConsoleUtils.writeNewLine();
-		ListMenu.deleteUserMenu();
-		ConsoleUtils.writeNewLine();
-
-		List<User> users = userService.getAllUsers();
-		List<Integer> getAllIds = users.stream().map(id -> id.getId()).collect(Collectors.toList());
-
-		ConsoleUtils.writeNewLine();
-		users.stream().forEach(user -> {
-
-			ConsoleUtils.write("User ID: ");
-			ConsoleUtils.writeInteger(user.getId());
-	
-			ConsoleUtils.write(" | Username: ");
-			ConsoleUtils.writeLine(user.getUsername());
-		});
-		ConsoleUtils.writeNewLine();
-
-		ConsoleUtils.write("Type the id of the user you want to delete: "); int id = ConsoleUtils.readInteger();
-
-		while(!getAllIds.contains(id)) {
-			ConsoleUtils.writeNewLine();
-			ErrorMenu.invalidDataError();
-			ConsoleUtils.write("Type the id of the user you want to delete: "); id = ConsoleUtils.readInteger();
-			ConsoleUtils.writeNewLine();
-		}
-
-		userService.deleteUserById(id);
-
-		ConsoleUtils.writeNewLine();
-		ConsoleUtils.writeLine("Successfully deleted!");
-		ConsoleUtils.write("Type 1 to back: "); int option = ConsoleUtils.readInteger();
-		ConsoleUtils.writeNewLine();
-
-		while(option != 1) {
-			ConsoleUtils.writeNewLine();
-			ErrorMenu.invalidInputError();
-			ConsoleUtils.write("Type 1 to back: "); option = ConsoleUtils.readInteger();
-			ConsoleUtils.writeNewLine();
-		}
-
-		backToAdminMenu();
-	}
-	
 	public void deletePersonalAccountById() {
 		
 		ConsoleUtils.writeNewLine();
@@ -177,7 +84,6 @@ public class UserController {
 				case "Yes": {
 					
 					User user = authService.getLoggedUser();
-					userService.deleteUserById(user.getId());
 					
 					ConsoleUtils.writeNewLine();
 					ConsoleUtils.writeLine("Successfully deleted!");
@@ -210,13 +116,7 @@ public class UserController {
 						case 1:
 
 						    user = authService.getLoggedUser();
-							
-							if(user.getAdmin()) {
-								backToAdminMenu();
-							}
-							else {
-								backToUserMenu();
-							}
+							backToUserMenu();
 							break;
 	
 						default:
@@ -233,58 +133,7 @@ public class UserController {
 			}
 		}
 	}
-	
-	public void makeUserAdminById() {
-		
-		ConsoleUtils.writeNewLine();
-		ListMenu.makeUserAdmin();
-		ConsoleUtils.writeNewLine();
-		
-		List<User> users = userService.getAllUsers();
-		List<Integer> getAllIds = users.stream().map(id -> id.getId()).collect(Collectors.toList());
-		
-		ConsoleUtils.writeNewLine();
-		users.stream().forEach(user -> {
 
-			ConsoleUtils.write("User ID: ");
-			ConsoleUtils.writeInteger(user.getId());
-	
-			ConsoleUtils.write(" | Username: ");
-			ConsoleUtils.writeLine(user.getUsername());
-		});
-		ConsoleUtils.writeNewLine();
-		
-		ConsoleUtils.write("Type the id of the user you want to make admin: "); int id = ConsoleUtils.readInteger();
-		
-		while(!getAllIds.contains(id)) {
-			ConsoleUtils.writeNewLine();
-			ErrorMenu.invalidDataError();
-			ConsoleUtils.write("Type the id of the user you want to make admin: "); id = ConsoleUtils.readInteger();
-			ConsoleUtils.writeNewLine();
-		}
-			
-		userService.makeUserAdmin(id);
-		
-		ConsoleUtils.writeNewLine();
-		ConsoleUtils.writeLine("Successfully done!");
-		ConsoleUtils.write("Type 1 to back: "); int option = ConsoleUtils.readInteger();
-		ConsoleUtils.writeNewLine();
-
-		while(option != 1) {
-			ConsoleUtils.writeNewLine();
-			ErrorMenu.invalidInputError();
-			ConsoleUtils.write("Type 1 to back: "); option = ConsoleUtils.readInteger();
-			ConsoleUtils.writeNewLine();
-		}
-
-		backToAdminMenu();
-	}
-	
-	private void backToAdminMenu() {
-		AdministrationController administrationController = new AdministrationController();
-		administrationController.run();
-    }
-	
 	private void backToMainMenu() {
 		MainController mainMenu = new MainController();
 		mainMenu.run();

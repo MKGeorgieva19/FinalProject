@@ -1,13 +1,15 @@
 package presentationlayer.controller;
 
-import presentationlayer.menus.AccountMenu;
-import presentationlayer.menus.ErrorMenu;
-import presentationlayer.menus.WelcomePageMenu;
+import presentationlayer.menu.AccountMenu;
+import presentationlayer.menu.ErrorMenu;
+import presentationlayer.menu.WelcomePageMenu;
 
 
 import utils.ConsoleUtils;
 import businesslayer.services.AuthenticationService;
 import businesslayer.services.RegisterService;
+
+import java.sql.SQLException;
 
 public class MainController {
 	
@@ -22,7 +24,7 @@ public class MainController {
         this.regService = RegisterService.getInstance();
     }
 
-	public void run() {
+	public void run() throws SQLException {
 
 		int optionForAccount;
 		
@@ -39,15 +41,8 @@ public class MainController {
 			
 			AccountMenu.login();
 			authController.run();
-			
-            if (authService.getLoggedUser().getAdmin()) {
-
-                AdministrationController administrationController = new AdministrationController();
-                administrationController.run();
-	        } else {
-	            LoggedUserManagementController loggedUserController = new LoggedUserManagementController();
-	            loggedUserController.run();
-	        }  
+            LoggedUserManagementController loggedUserController = new LoggedUserManagementController();
+			loggedUserController.run();
 	        
 		} else if(optionForAccount == 2) {
 			

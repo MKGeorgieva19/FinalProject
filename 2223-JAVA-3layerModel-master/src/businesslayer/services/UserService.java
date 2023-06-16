@@ -24,16 +24,24 @@ public class UserService {
     }
 
     public static List<User> getAllUsers() throws SQLException {
-        List<User> users = UserRepository.getUsers();
-        return users;
+        return UserRepository.getAllUsers();
     }
 
+    public static User getUserById(int userId) throws SQLException{
+        return UserRepository.getUserById(userId);
+    }
+
+    public static void updateUser(User user) throws SQLException{
+        UserRepository.updateUser(user);
+    }
+
+    public static void deleteUser(User user) throws SQLException {
+        UserRepository.deleteUser(user);
+    }
 
     public User getRegisteredUser(String username, String password) {
 
-        User user = userRepository.getRegisteredUser(username, password);
-
-        return user;
+        return userRepository.getRegisteredUser(username, password);
     }
 
 
@@ -46,21 +54,5 @@ public class UserService {
             }
         }
         return false;
-    }
-
-    public  static User getUserById(int userId) throws SQLException {
-        return UserRepository.getUserById(userId);
-    }
-
-    public static void insertIntoUsers(User user) throws SQLException{
-        UserRepository.insertIntoUser(user);
-    }
-
-    public static void updateUser(User user) throws SQLException {
-        UserRepository.updateUser(user);
-    }
-
-    public static void deleteUser(User user) throws SQLException {
-        UserRepository.deleteUser(user);
     }
 }

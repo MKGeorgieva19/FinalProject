@@ -1,7 +1,10 @@
 package businesslayer.services;
 
 import dataaccesslayer.repositories.UserRepository;
+import models.User;
 import utils.PasswordManager;
+
+import java.sql.SQLException;
 
 public class RegisterService {
 	
@@ -26,12 +29,12 @@ public class RegisterService {
         return correctUser;
     }
 
-	public void insertUser(String firstName, String lastName, String email, String username, String password) {
+	public void insertUser(String username, String password, String address, String phone, String email) throws SQLException {
 		
 		String salt = PasswordManager.getNextSalt();
 		password = PasswordManager.hash(password.toCharArray(), salt);
 		
-		correctUser = usersRepository.insertUser(firstName, lastName, email, username, password, salt, false);
+		correctUser = usersRepository.insertInto(username, password, address, phone, email);
 	}
 	
 	public void destroyCurrentRegisteredUser() {

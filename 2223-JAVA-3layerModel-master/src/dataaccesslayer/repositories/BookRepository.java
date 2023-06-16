@@ -5,14 +5,26 @@ import models.Category;
 import utils.DBConnection;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 import static java.lang.System.*;
 
 public class BookRepository {
+    private static BookRepository instance = null;
+
+    public static BookRepository getInstance() {
+
+        if (BookRepository.instance == null) {
+            BookRepository.instance = new BookRepository();
+        }
+
+        return BookRepository.instance;
+    }
+
     public static List<Book> getBooks() throws SQLException{
-        List<Book> books = null;
+        List<Book> books = new ArrayList<>();
 
         String commandString = "SELECT * FROM Books";
 
@@ -45,15 +57,18 @@ public class BookRepository {
     public static void insertIntoBook(Book book) throws SQLException{
         String commandString = "INSERT INTO Books(Title, Author, [Year], CategoryID) VALUES (?, ?, ?, ?)";
 
-        Connection connection = DBConnection.getConnection();
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement statement = conn.prepareStatement(commandString)) {
 
-        PreparedStatement statement = connection.prepareStatement(commandString);
-        statement.setString(1, book.getTitle());
-        statement.setString(2, book.getAuthor());
-        statement.setInt(3, book.getYear());
-        statement.setInt(4, book.getCategoryId());
+            statement.setString(1, book.getTitle());
+            statement.setString(2, book.getAuthor());
+            statement.setInt(3, book.getYear());
+            statement.setInt(4, book.getCategoryId());
 
-        statement.executeUpdate();
+            int rs = statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     public static void updateBook(Book book) throws SQLException{

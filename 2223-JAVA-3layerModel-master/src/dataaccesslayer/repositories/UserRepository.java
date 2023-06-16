@@ -37,32 +37,43 @@ public class UserRepository {
 
         return users;
     }
+    public static User getUserById(int userId) throws SQLException{
+        User user = new User();
 
-    public static boolean insertInto(User user) throws SQLException {
-        String commandString = "INSERT INTO Users([Name], Gender, Username, [Password]) VALUES(?, ?, ?, ?)";
-        String query2 = "SELECT * FROM Users WHERE Username = ?";
+        String commandString = "SELECT * FROM Users WHERE Id = @userId";
+
         Connection connection = DBConnection.getConnection();
 
         PreparedStatement statement = connection.prepareStatement(commandString);
 
+        ResultSet resultSet = statement.executeQuery();
+
+        return mapToUser(resultSet);
+    }
+
+    public static boolean insertInto(String username, String password, String address, String phone, String email) throws SQLException {
+        String commandString = "INSERT INTO Users(Username, [Password], [Address], Phone, Email) VALUES(?, ?, ?, ?, ?)";
+        String commandString1 = "SELECT * FROM Users WHERE Username = ?";
+
         try (Connection conn = DBConnection.getConnection();
-             PreparedStatement pst1 = conn.prepareStatement(commandString);
-             PreparedStatement pst2 = conn.prepareStatement(query2)) {
+             PreparedStatement preparedStatement = conn.prepareStatement(commandString);
+             PreparedStatement preparedStatement1 = conn.prepareStatement(commandString1)) {
 
-            pst2.setString(1, user.getUsername());
+            preparedStatement1.setString(1, username);
 
-            ResultSet resultSet = pst2.executeQuery();
+            ResultSet resultSet = preparedStatement1.executeQuery();
 
             if(resultSet.next()) {
                 return false;
             }
             else {
-                pst1.setString(1, user.getName());
-                pst1.setString(2, user.getGender());
-                pst1.setString(3, user.getUsername());
-                pst1.setString(4, user.getPassword());
+                preparedStatement.setString(1, username);
+                preparedStatement.setString(2, password);
+                preparedStatement.setString(3, address);
+                preparedStatement.setString(4, phone);
+                preparedStatement.setString(5, email);
 
-                int rs = pst1.executeUpdate();
+                int rs = preparedStatement.executeUpdate();
                 return true;
             }
         } catch (SQLException e) {
@@ -71,18 +82,19 @@ public class UserRepository {
         return true;
     }
 
-    public void updateUser(User user) throws SQLException {
-        String commandString = "UPDATE Users SET([Name] = ?, Gender = ?, Username = ?, [Password] = ?) WHERE Id = ?";
+    public static void updateUser(User user) throws SQLException {
+        String commandString = "UPDATE Users SET(Username = ?, [Password] = ?, [Address] = ?, Phone = ?, Email = ?) WHERE Id = ?";
 
         Connection connection = DBConnection.getConnection();
 
         PreparedStatement statement = connection.prepareStatement(commandString);
 
         statement.setInt(0, user.getId());
-        statement.setString(1, user.getName());
-        statement.setString(2, user.getGender());
-        statement.setString(3, user.getUsername());
-        statement.setString(4, user.getPassword());
+        statement.setString(1, user.getUsername());
+        statement.setString(2, user.getPassword());
+        statement.setString(3, user.getAddress());
+        statement.setString(4, user.getPhone());
+        statement.setString(5, user.getEmail());
 
         statement.executeUpdate();
     }
@@ -103,10 +115,11 @@ public class UserRepository {
         User user = new User();
 
         user.setId(resultSet.getInt(0));
-        user.setName(resultSet.getString(1));
-        user.setGender(resultSet.getString(2));
-        user.setUsername(resultSet.getString(3));
-        user.setPassword(resultSet.getString(4));
+        user.setUsername(resultSet.getString(1));
+        user.setPassword(resultSet.getString(2));
+        user.setAddress(resultSet.getString(3));
+        user.setPhone(resultSet.getString(4));
+        user.setEmail(resultSet.getString(5));
 
         return user;
     }

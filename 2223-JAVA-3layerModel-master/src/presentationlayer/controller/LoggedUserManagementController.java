@@ -1,10 +1,12 @@
 package presentationlayer.controller;
 
-import presentationlayer.menus.ErrorMenu;
-import presentationlayer.menus.LoggedUserMenu;
+import presentationlayer.menu.ErrorMenu;
+import presentationlayer.menu.LoggedUserMenu;
 import utils.ConsoleUtils;
 
 import businesslayer.services.AuthenticationService;
+
+import java.sql.SQLException;
 
 public class LoggedUserManagementController {
 	
@@ -15,7 +17,7 @@ public class LoggedUserManagementController {
 		
 	}
 
-	public void run() {
+	public void run() throws SQLException {
 		
 		LoggedUserMenu.loggedUser();
 		
@@ -89,7 +91,7 @@ public class LoggedUserManagementController {
 		viewAllMoviesOrSeriesByGenreController.viewAllMoviesOrSeriesByGenre();
     }
 	
-	private void backToMainMenu() {
+	private void backToMainMenu() throws SQLException {
 		MainController mainMenu = new MainController();
 		mainMenu.run();
     }

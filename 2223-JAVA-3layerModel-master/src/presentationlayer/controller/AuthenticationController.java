@@ -1,6 +1,6 @@
 package presentationlayer.controller;
 
-import presentationlayer.menus.ErrorMenu;
+import presentationlayer.menu.ErrorMenu;
 import businesslayer.services.AuthenticationService;
 import utils.ConsoleUtils;
 

@@ -1,13 +1,38 @@
 CREATE DATABASE FinalProject
 USE FinalProject
 
-
+create table Categories (
+	Id INT PRIMARY KEY,
+	[Name] VARCHAR(50)
+);
+insert into Categories (Id, [Name]) values (1, 'DOBUTamine Hydrochloride in Dextrose');
+insert into Categories (Id, [Name]) values (2, 'Promethazine HCl');
+insert into Categories (Id, [Name]) values (3, 'Agaricus Phosphorus');
+insert into Categories (Id, [Name]) values (4, 'Venlafaxine Hydrochloride');
+insert into Categories (Id, [Name]) values (5, 'Losartan Potassium and Hydrochlorothiazide');
+insert into Categories (Id, [Name]) values (6, 'Scal tonic shampoo');
+insert into Categories (Id, [Name]) values (7, 'COREGCR');
+insert into Categories (Id, [Name]) values (8, 'Medi-First');
+insert into Categories (Id, [Name]) values (9, 'Longleaf Pine');
+insert into Categories (Id, [Name]) values (10, 'Bethanechol Chloride');
+insert into Categories (Id, [Name]) values (11, 'Gas Relief');
+insert into Categories (Id, [Name]) values (12, 'Aspergillus niger');
+insert into Categories (Id, [Name]) values (13, 'Triamterene and Hydrochlorothiazide');
+insert into Categories (Id, [Name]) values (14, 'Amoxicillin and Clavulanate Potassium');
+insert into Categories (Id, [Name]) values (15, 'REPAGLINIDE');
+insert into Categories (Id, [Name]) values (16, 'athletes foot');
+insert into Categories (Id, [Name]) values (17, 'Ranexa');
+insert into Categories (Id, [Name]) values (18, 'Nortriptyline Hydrochloride');
+insert into Categories (Id, [Name]) values (19, 'GUNA-DIZZY');
+insert into Categories (Id, [Name]) values (20, 'Sodium Bicarbonate');
 
 create table Books (
-	Id INT,
+	Id INT PRIMARY KEY,
 	Title VARCHAR(50),
 	Author VARCHAR(50),
-	[Year] VARCHAR(50)
+	[Year] VARCHAR(50),
+	CategoryId INT,
+	FOREIGN KEY (CategoryId) REFERENCES Categories(Id)
 );
 insert into Books (Id, Title, Author, [Year]) values (1, 'All American Chump', 'Martino Simonsson', 2008);
 insert into Books (Id, Title, Author, [Year]) values (2, 'Texas Across the River', 'Priscella Pennycock', 1997);
@@ -32,58 +57,59 @@ insert into Books (Id, Title, Author, [Year]) values (20, 'Beck - Familjen', 'Co
 
 create table Users (
 	Id INT PRIMARY KEY,
-	FirstName VARCHAR(50),
-	LastName VARCHAR(50),
 	Username VARCHAR(50),
-	[Password] VARCHAR(50)
-);
-insert into Users (Id, FirstName, LastName, Username, [Password]) values (1, 'Svend', 'Lequeux', 'slequeux0', 'p7CK7sq');
-insert into Users (Id, FirstName, LastName, Username, [Password]) values (2, 'Ginger', 'Lyvon', 'glyvon1', 'sR6ATYPQ19');
-insert into Users (Id, FirstName, LastName, Username, [Password]) values (3, 'Henrietta', 'Menham', 'hmenham2', 'xS3A5FrP');
-insert into Users (Id, FirstName, LastName, Username, [Password]) values (4, 'Ermanno', 'Gilhespy', 'egilhespy3', 'wYVhzR');
-insert into Users (Id, FirstName, LastName, Username, [Password]) values (5, 'Prescott', 'Frederick', 'pfrederick4', 'Zs1laN');
-insert into Users (Id, FirstName, LastName, Username, [Password]) values (6, 'Raynell', 'Spreckley', 'rspreckley5', '17TpgXegJ');
-insert into Users (Id, FirstName, LastName, Username, [Password]) values (7, 'Fernando', 'Souley', 'fsouley6', 'npcNoN');
-insert into Users (Id, FirstName, LastName, Username, [Password]) values (8, 'Matt', 'Brumbie', 'mbrumbie7', '7TpNsb');
-insert into Users (Id, FirstName, LastName, Username, [Password]) values (9, 'Lezlie', 'Fransewich', 'lfransewich8', 'kyLxZkgH7');
-insert into Users (Id, FirstName, LastName, Username, [Password]) values (10, 'Melodie', 'Maddick', 'mmaddick9', 'KAkD0kC');
-insert into Users (Id, FirstName, LastName, Username, [Password]) values (11, 'Melva', 'Aronoff', 'maronoffa', 'n8GXsdeM');
-insert into Users (Id, FirstName, LastName, Username, [Password]) values (12, 'Celina', 'McNern', 'cmcnernb', 'vXppPmC');
-insert into Users (Id, FirstName, LastName, Username, [Password]) values (13, 'Cece', 'Ionesco', 'cionescoc', 'vhKojUZp8Odv');
-insert into Users (Id, FirstName, LastName, Username, [Password]) values (14, 'Gabbie', 'Crufts', 'gcruftsd', 'V7D8Jjt1z9d');
-insert into Users (Id, FirstName, LastName, Username, [Password]) values (15, 'Archer', 'Huston', 'ahustone', 'frKQu1Piy');
-insert into Users (Id, FirstName, LastName, Username, [Password]) values (16, 'Dotty', 'Mulqueeny', 'dmulqueenyf', 'x0bk9TjRobs');
-insert into Users (Id, FirstName, LastName, Username, [Password]) values (17, 'Trever', 'Edgeller', 'tedgellerg', '74cEXTga');
-insert into Users (Id, FirstName, LastName, Username, [Password]) values (18, 'Delphinia', 'Brinded', 'dbrindedh', 'QEjzhGn9FaX');
-insert into Users (Id, FirstName, LastName, Username, [Password]) values (19, 'Kipper', 'Wellum', 'kwellumi', '2Agfhxfr4');
-insert into Users (Id, FirstName, LastName, Username, [Password]) values (20, 'Fin', 'Berens', 'fberensj', 'YRSaytV');
-
-create table Libraries (
-	Id INT PRIMARY KEY,
-	[Name] VARCHAR(50),
+	[Password] VARCHAR(50),
 	[Address] VARCHAR(50),
-	UserId INT,
-	BookId INT,
-	FOREIGN KEY (UserId) REFERENCES Users(Id),
-    FOREIGN KEY (BookId) REFERENCES Books(Id)
+	Phone VARCHAR(50),
+	Email VARCHAR(50),
 );
-insert into Libraries (Id, [Name], [Address]) values (1, 'Dabvine', '12 Bartelt Street');
-insert into Libraries (Id, [Name], [Address]) values (2, 'Photojam', '5264 Graceland Trail');
-insert into Libraries (Id, [Name], [Address]) values (3, 'Dabtype', '26241 Eastlawn Court');
-insert into Libraries (Id, [Name], [Address]) values (4, 'Divanoodle', '218 Valley Edge Alley');
-insert into Libraries (Id, [Name], [Address]) values (5, 'Eamia', '27 Nobel Court');
-insert into Libraries (Id, [Name], [Address]) values (6, 'Minyx', '5 Northfield Center');
-insert into Libraries (Id, [Name], [Address]) values (7, 'Yodel', '309 Pine View Junction');
-insert into Libraries (Id, [Name], [Address]) values (8, 'Oloo', '15 Lawn Drive');
-insert into Libraries (Id, [Name], [Address]) values (9, 'Jetwire', '52780 International Avenue');
-insert into Libraries (Id, [Name], [Address]) values (10, 'Trilith', '5 Miller Terrace');
-insert into Libraries (Id, [Name], [Address]) values (11, 'Twitterwire', '34454 Onsgard Road');
-insert into Libraries (Id, [Name], [Address]) values (12, 'Tagchat', '95 Fordem Parkway');
-insert into Libraries (Id, [Name], [Address]) values (13, 'Meevee', '44 Ronald Regan Junction');
-insert into Libraries (Id, [Name], [Address]) values (14, 'Zazio', '2186 Crownhardt Alley');
-insert into Libraries (Id, [Name], [Address]) values (15, 'Vidoo', '3 Derek Junction');
-insert into Libraries (Id, [Name], [Address]) values (16, 'Geba', '260 Sloan Trail');
-insert into Libraries (Id, [Name], [Address]) values (17, 'Devify', '3288 Schurz Point');
-insert into Libraries (Id, [Name], [Address]) values (18, 'Eayo', '7 Rigney Way');
-insert into Libraries (Id, [Name], [Address]) values (19, 'Kwimbee', '6951 Hudson Parkway');
-insert into Libraries (Id, [Name], [Address]) values (20, 'Avamm', '88474 Lerdahl Pass');
+
+insert into Users (Id, Username, [Password], [Address], Phone, Email) values (1, 'dedensor0', 'eQ1<J$_ubY', '9091 Longview Drive', '528-523-3698', 'bcleeton0@edublogs.org');
+insert into Users (Id, Username, [Password], [Address], Phone, Email) values (2, 'kleibold1', 'gF0>#eX`+3x', '5 Vera Street', '493-696-1342', 'cnealey1@eepurl.com');
+insert into Users (Id, Username, [Password], [Address], Phone, Email) values (3, 'awateridge2', 'cX2@5ge%EX', '9813 Texas Hill', '901-633-6487', 'tlezemere2@pagesperso-orange.fr');
+insert into Users (Id, Username, [Password], [Address], Phone, Email) values (4, 'riczokvitz3', 'xM4}S,vE=dRw0', '9 Columbus Pass', '126-797-2301', 'jdelatour3@stumbleupon.com');
+insert into Users (Id, Username, [Password], [Address], Phone, Email) values (5, 'fdominick4', 'nZ9~b+Szd7pVq=l{', '9760 Linden Alley', '778-850-0970', 'wtillot4@cnet.com');
+insert into Users (Id, Username, [Password], [Address], Phone, Email) values (6, 'dfraanchyonok5', 'kF8\$U+s)l0M&/0', '025 Summer Ridge Street', '835-383-6342', 'ltointon5@icq.com');
+insert into Users (Id, Username, [Password], [Address], Phone, Email) values (7, 'sgrimwade6', 'bD4!$%)3M/=ibTd%', '84629 Anniversary Way', '966-685-8702', 'dbradbrook6@oakley.com');
+insert into Users (Id, Username, [Password], [Address], Phone, Email) values (8, 'cshelborne7', 'xZ2+z+23', '88051 Corscot Crossing', '292-593-5363', 'slarham7@meetup.com');
+insert into Users (Id, Username, [Password], [Address], Phone, Email) values (9, 'lmenlow8', 'nN7~yYm$r24~~#~W', '507 Dakota Hill', '125-335-3681', 'cbrandacci8@cmu.edu');
+insert into Users (Id, Username, [Password], [Address], Phone, Email) values (10, 'rmacghee9', 'jK4$`O2N#)mq}k', '1666 Schiller Court', '449-897-3104', 'ewoodcock9@thetimes.co.uk');
+insert into Users (Id, Username, [Password], [Address], Phone, Email) values (11, 'ipaleka', 'hW0!@3KhH', '3660 Waxwing Crossing', '997-882-0760', 'wlatorea@yellowpages.com');
+insert into Users (Id, Username, [Password], [Address], Phone, Email) values (12, 'sspeechlyb', 'zB1}N1)?0<', '4 Sunbrook Pass', '307-384-6303', 'rbusekb@a8.net');
+insert into Users (Id, Username, [Password], [Address], Phone, Email) values (13, 'tmorridc', 'wZ8_sl<~xEo~|a', '9306 Basil Drive', '318-419-6712', 'ralvaradoc@ucsd.edu');
+insert into Users (Id, Username, [Password], [Address], Phone, Email) values (14, 'swhildd', 'eG1!O%iT$3Cu~', '1 Talisman Junction', '461-828-7096', 'kewerd@sbwire.com');
+insert into Users (Id, Username, [Password], [Address], Phone, Email) values (15, 'soxtibye', 'qM9`!$IBAu9u,Q', '3964 Corry Plaza', '324-488-0211', 'aclaesense@rambler.ru');
+insert into Users (Id, Username, [Password], [Address], Phone, Email) values (16, 'sitzkowiczf', 'gY7(UKJWtBi$`', '15 Clemons Lane', '568-159-2432', 'kbrixeyf@marriott.com');
+insert into Users (Id, Username, [Password], [Address], Phone, Email) values (17, 'cbaptyg', 'yW7>|UlgjSYR', '996 Porter Circle', '691-511-6354', 'ffusseng@com.com');
+insert into Users (Id, Username, [Password], [Address], Phone, Email) values (18, 'broylanceh', 'eY9}4''Q*49', '02597 Swallow Trail', '142-834-6115', 'iganth@hugedomains.com');
+insert into Users (Id, Username, [Password], [Address], Phone, Email) values (19, 'gorpwoodi', 'kH0"SHVH', '5602 Elmside Road', '152-269-1208', 'kjirii@ustream.tv');
+insert into Users (Id, Username, [Password], [Address], Phone, Email) values (20, 'lleperej', 'yK7''mCl%bp9/<C', '7787 Carey Drive', '330-101-3772', 'jattwoolj@studiopress.com');
+
+create table Reservations (
+	Id INT PRIMARY KEY,
+	BookId INT,
+	UserId INT,
+	ReservationDate DATE,
+	FOREIGN KEY (BookId) REFERENCES Books(Id),
+	FOREIGN KEY (UserId) REFERENCES Users(Id)
+);
+insert into Reservations (Id, ReservationDate) values (1, '2/25/2021');
+insert into Reservations (Id, ReservationDate) values (2, '4/14/2008');
+insert into Reservations (Id, ReservationDate) values (3, '8/9/2005');
+insert into Reservations (Id, ReservationDate) values (4, '2/22/2004');
+insert into Reservations (Id, ReservationDate) values (5, '11/7/2005');
+insert into Reservations (Id, ReservationDate) values (6, '5/29/2011');
+insert into Reservations (Id, ReservationDate) values (7, '8/16/2004');
+insert into Reservations (Id, ReservationDate) values (8, '10/8/2005');
+insert into Reservations (Id, ReservationDate) values (9, '1/22/2018');
+insert into Reservations (Id, ReservationDate) values (10, '10/28/2004');
+insert into Reservations (Id, ReservationDate) values (11, '11/24/2022');
+insert into Reservations (Id, ReservationDate) values (12, '4/30/2004');
+insert into Reservations (Id, ReservationDate) values (13, '5/12/2005');
+insert into Reservations (Id, ReservationDate) values (14, '4/18/2016');
+insert into Reservations (Id, ReservationDate) values (15, '7/14/2008');
+insert into Reservations (Id, ReservationDate) values (16, '6/13/2020');
+insert into Reservations (Id, ReservationDate) values (17, '6/29/2016');
+insert into Reservations (Id, ReservationDate) values (18, '6/2/1995');
+insert into Reservations (Id, ReservationDate) values (19, '7/22/2006');
+insert into Reservations (Id, ReservationDate) values (20, '10/28/2001');
