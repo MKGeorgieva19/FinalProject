@@ -35,8 +35,8 @@ public class UserService {
         UserRepository.updateUser(user);
     }
 
-    public static void deleteUser(User user) throws SQLException {
-        UserRepository.deleteUser(user);
+    public static void deleteUserById(int userId) throws SQLException {
+        UserRepository.deleteUserById(userId);
     }
 
     public User getRegisteredUser(String username, String password) {

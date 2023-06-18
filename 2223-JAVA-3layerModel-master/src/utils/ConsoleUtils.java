@@ -1,5 +1,7 @@
 package utils;
 
+import presentationlayer.menu.ErrorMenu;
+
 import java.util.Scanner;
 
 public class ConsoleUtils {

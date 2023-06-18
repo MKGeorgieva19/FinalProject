@@ -1,15 +1,11 @@
 package dataaccesslayer.repositories;
 
 import models.Book;
-import models.Category;
 import utils.DBConnection;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
-
-import static java.lang.System.*;
 
 public class BookRepository {
     private static BookRepository instance = null;
@@ -23,7 +19,7 @@ public class BookRepository {
         return BookRepository.instance;
     }
 
-    public static List<Book> getBooks() throws SQLException{
+    public static List<Book> getAllBooks() throws SQLException{
         List<Book> books = new ArrayList<>();
 
         String commandString = "SELECT * FROM Books";
@@ -54,7 +50,7 @@ public class BookRepository {
         return mapToBook(resultSet);
     }
 
-    public static void insertIntoBook(Book book) throws SQLException{
+    public static void insertInto(Book book) throws SQLException{
         String commandString = "INSERT INTO Books(Title, Author, [Year], CategoryID) VALUES (?, ?, ?, ?)";
 
         try (Connection conn = DBConnection.getConnection();

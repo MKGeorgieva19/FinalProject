@@ -8,7 +8,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Date;
 
 public class ReservationRepository {
     private static ReservationRepository instance = null;
@@ -51,15 +50,15 @@ public class ReservationRepository {
         return mapToReservation(resultSet);
     }
 
-    public void insertInto(int bookId, int userId, Date reservationDate) throws SQLException {
+    public static void insertInto(Reservation reservation) throws SQLException {
         String commandString = "INSERT INTO movies (BookId, UserId, ReservationDate) VALUES (?, ?, ?)";
 
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement statement = conn.prepareStatement(commandString)) {
 
-            statement.setInt(1, bookId);
-            statement.setInt(2, userId);
-            statement.setDate(3, (java.sql.Date) reservationDate);
+            statement.setInt(1, reservation.getBookId());
+            statement.setInt(2, reservation.getUserId());
+            statement.setString(3, reservation.getReservationDate());
 
             int rs = statement.executeUpdate();
         } catch (SQLException e) {
@@ -77,7 +76,7 @@ public class ReservationRepository {
         statement.setInt(0, reservation.getId());
         statement.setInt(1, reservation.getBookId());
         statement.setInt(2, reservation.getUserId());
-        statement.setDate(3, (java.sql.Date) reservation.getReservationDate());
+        statement.setString(3, reservation.getReservationDate());
 
         statement.executeUpdate();
     }
@@ -100,7 +99,7 @@ public class ReservationRepository {
         reservation.setId(resultSet.getInt(0));
         reservation.setBookId(resultSet.getInt(1));
         reservation.setUserId(resultSet.getInt(2));
-        reservation.setReservationDate(resultSet.getDate(3));
+        reservation.setReservationDate(resultSet.getString(3));
 
         return reservation;
     }

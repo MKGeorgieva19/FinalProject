@@ -1,17 +1,16 @@
 package models;
 
-import java.util.Date;
 
 public class Reservation {
     private int id;
     private int bookId;
     private int userId;
-    private Date reservationDate;
+    private String reservationDate;
 
     public Reservation() {
     }
 
-    public Reservation(int reservationId, int bookId, int memberId, Date reservationDate) {
+    public Reservation(int reservationId, int bookId, int memberId, String reservationDate) {
         this.id = reservationId;
         this.bookId = bookId;
         this.userId = memberId;
@@ -42,11 +41,11 @@ public class Reservation {
         this.userId = userId;
     }
 
-    public Date getReservationDate() {
+    public String getReservationDate() {
         return reservationDate;
     }
 
-    public void setReservationDate(Date reservationDate) {
+    public void setReservationDate(String reservationDate) {
         this.reservationDate = reservationDate;
     }
 

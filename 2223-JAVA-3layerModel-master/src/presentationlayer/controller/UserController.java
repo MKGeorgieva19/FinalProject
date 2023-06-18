@@ -2,21 +2,20 @@ package presentationlayer.controller;
 
 import java.sql.SQLException;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import presentationlayer.menu.ErrorMenu;
-import presentationlayer.menu.ListMenu;
 import models.User;
 import businesslayer.services.AuthenticationService;
 import businesslayer.services.UserService;
+import presentationlayer.menu.ListMenu;
 import utils.ConsoleUtils;
 
 public class UserController {
 	
 	private final UserService userService;
-	private final AuthenticationService authService;
+	private static AuthenticationService authService = null;
 	
-	User user = null;
+	static User user = null;
 	
 	public UserController() {
 		this.userService = UserService.getInstance();
@@ -25,7 +24,7 @@ public class UserController {
 	
 	public void viewAllUsers() throws SQLException {
 		
-		ListMenu.allGenresMenu();
+		ListMenu.allUsersMenu();
 		
 		List<User> users = UserService.getAllUsers();
 		
@@ -67,7 +66,7 @@ public class UserController {
 		}	
 	}
 
-	public void deletePersonalAccountById() {
+	public static void deletePersonalAccountById() throws SQLException {
 		
 		ConsoleUtils.writeNewLine();
 		ListMenu.deletePersonalAccountMenu();
@@ -134,12 +133,12 @@ public class UserController {
 		}
 	}
 
-	private void backToMainMenu() {
+	private static void backToMainMenu() throws SQLException {
 		MainController mainMenu = new MainController();
 		mainMenu.run();
     }
 	
-	private void backToUserMenu() {
+	private static void backToUserMenu() throws SQLException {
 		LoggedUserManagementController loggedUserManagementController = new LoggedUserManagementController();
 		loggedUserManagementController.run();
     }

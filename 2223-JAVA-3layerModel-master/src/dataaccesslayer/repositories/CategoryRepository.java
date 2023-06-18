@@ -48,13 +48,13 @@ public class CategoryRepository {
         return mapToCategory(resultSet);
     }
 
-    public static void insertIntoCategory(String name) throws SQLException{
+    public static void insertInto(Category category) throws SQLException{
         String commandString = "INSERT INTO Categories([Name]) VALUES (?)";
 
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement statement = conn.prepareStatement(commandString)) {
 
-            statement.setString(1, name);
+            statement.setString(1, category.getName());
 
             int rs = statement.executeUpdate();
         } catch (SQLException e) {

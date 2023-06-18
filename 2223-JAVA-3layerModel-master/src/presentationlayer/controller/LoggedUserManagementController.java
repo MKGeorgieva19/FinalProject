@@ -10,14 +10,18 @@ import java.sql.SQLException;
 
 public class LoggedUserManagementController {
 	
-	private final AuthenticationService authenticationService;
-	
+	private static AuthenticationService authenticationService;
+
+	static {
+		authenticationService = null;
+	}
+
 	public LoggedUserManagementController() {
 		this.authenticationService = AuthenticationService.getInstance();
 		
 	}
 
-	public void run() throws SQLException {
+	public static void run() throws SQLException {
 		
 		LoggedUserMenu.loggedUser();
 		
@@ -26,34 +30,30 @@ public class LoggedUserManagementController {
 		while(true) {
 			switch (choice) {
 				case 1: {
-					viewAllMovies();
+					viewAllBooks();
 					break;
 				}
 				case 2: {
-					viewAllSeries();
+					bookReservation();
 					break;
 				}
 				case 3: {
-					viewAllFavourites();
+					viewByCategory();
 					break;
 				}
 				case 4: {
-					viewAllMoviesOrSeriesByGenre();
+					addBooks();
 					break;
 				}
 				case 5: {
-					viewAllMoviesOrSeriesByActor();
+					addCategory();
 					break;
 				}
 				case 6: {
-					viewAllActors();
-					break;
-				}
-				case 7: {
 					deletePersonalAccountById();
 					break;
 				}
-				case 8: {
+				case 7: {
 					authenticationService.destroySession();
 					backToMainMenu();
 					break;
@@ -66,43 +66,31 @@ public class LoggedUserManagementController {
 		}
 	}
 	
-	private void viewAllMovies() {
-		MovieController viewAllMoviesController = new MovieController();
-		viewAllMoviesController.viewAllMovies();
+	private static void viewAllBooks() throws SQLException {
+		BookController.viewAllBooks();
     }
 	
-	private void viewAllSeries() {
-		MovieController viewAllSeriesController = new MovieController();
-		viewAllSeriesController.viewAllSeries();
+	private static void addBooks() throws SQLException {
+		BookController.addBook();
     }
 	
-	private void viewAllFavourites() {
-		MovieController viewAllFavouritesController = new MovieController();
-		viewAllFavouritesController.viewFavourites();
+	private static void backToMainMenu() throws SQLException {
+		MainController.run();
     }
 	
-	private void viewAllMoviesOrSeriesByActor() {
-		MovieController viewAllMoviesOrSeriesByActor = new MovieController();
-		viewAllMoviesOrSeriesByActor.viewAllMoviesOrSeriesByActor();
-    }
-	
-	private void viewAllMoviesOrSeriesByGenre() {
-		MovieController viewAllMoviesOrSeriesByGenreController = new MovieController();
-		viewAllMoviesOrSeriesByGenreController.viewAllMoviesOrSeriesByGenre();
-    }
-	
-	private void backToMainMenu() throws SQLException {
-		MainController mainMenu = new MainController();
-		mainMenu.run();
-    }
-	
-	private void viewAllActors() {
-		MovieController actors = new MovieController();
-		actors.viewAllActors();;
-    }
-	
-	private void deletePersonalAccountById() {
-		UserController user = new UserController();
-		user.deletePersonalAccountById();
-    }
+	private static void bookReservation() throws SQLException{
+		ReservationController.insertReservation();
+	}
+
+	private static void viewByCategory() throws SQLException{
+		CategoryController.viewAllCategories();
+	}
+
+	private static void addCategory() throws SQLException{
+		CategoryController.addCategory();
+	}
+
+	private static void deletePersonalAccountById() throws SQLException{
+		UserController.deletePersonalAccountById();
+	}
 }

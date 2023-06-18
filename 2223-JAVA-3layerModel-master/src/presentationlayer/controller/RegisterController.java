@@ -35,6 +35,13 @@ public class RegisterController {
 	        
 	        ConsoleUtils.writeLine("E-MAIL: ");
 	        String email = ConsoleUtils.read();
+
+			User user = new User();
+			user.setUsername(username);
+			user.setPassword(password);
+			user.setAddress(address);
+			user.setPhone(phone);
+			user.setEmail(email);
 	        
 	        while(!email.endsWith("@gmail.com") ^ !email.endsWith("@yahoo.com") ^ !email.endsWith("@hotmail.com") ^ !email.endsWith("@codingburgas.com") ^ !email.endsWith("@abv.bg")) {
 				ErrorMenu.invalidDomain();
@@ -48,7 +55,7 @@ public class RegisterController {
 		        }
 	        }
 	        
-	        regService.insertUser(username, password, address, phone, email);
+	        regService.insertUser(user);
 	        
 	        if(regService.getCorrectUser() == false) {
 	        	ErrorMenu.invalidUsername();

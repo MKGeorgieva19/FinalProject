@@ -4,73 +4,45 @@ import utils.ConsoleUtils;
 
 public class ListMenu {
 
-	public static void allMoviesMenu() {
+	public static void allBooksMenu() {
 		
 		ConsoleUtils.writeLine("+------------------------------------------------------------------+");
-		ConsoleUtils.writeLine("|                   List of all uploaded movies                    |");
+		ConsoleUtils.writeLine("|                   List of all uploaded books                     |");
 		ConsoleUtils.writeLine("+------------------------------------------------------------------+");
 	}
 	
-	public static void allSeriesMenu() {
+	public static void allUsersMenu() {
 		
 		ConsoleUtils.writeLine("+------------------------------------------------------------------+");
-		ConsoleUtils.writeLine("|                   List of all uploaded series                    |");
+		ConsoleUtils.writeLine("|                        List of all users                         |");
 		ConsoleUtils.writeLine("+------------------------------------------------------------------+");
 	}
-	
-	public static void allActorsMenu() {
-		
-		ConsoleUtils.writeLine("+------------------------------------------------------------------+");
-		ConsoleUtils.writeLine("|                   List of all uploaded actors                    |");
-		ConsoleUtils.writeLine("+------------------------------------------------------------------+");
-	}
-	
+
 	public static void allGenresMenu() {
-		
+
 		ConsoleUtils.writeLine("+------------------------------------------------------------------+");
 		ConsoleUtils.writeLine("|                   List of all uploaded genres                    |");
 		ConsoleUtils.writeLine("+------------------------------------------------------------------+");
 	}
-	
-	public static void allFavouritesMenu() {
+
+	public static void insertBook() {
 		
 		ConsoleUtils.writeLine("+------------------------------------------------------------------+");
-		ConsoleUtils.writeLine("|                      List of all favourites                      |");
+		ConsoleUtils.writeLine("|                             Add book                             |");
 		ConsoleUtils.writeLine("+------------------------------------------------------------------+");
 	}
-	
-	public static void allMoviesByGenreMenu() {
-		
+
+	public static void insertCategory() {
+
 		ConsoleUtils.writeLine("+------------------------------------------------------------------+");
-		ConsoleUtils.writeLine("|                        Type name of genre                        |");
-		ConsoleUtils.writeLine("+------------------------------------------------------------------+");
-	}
-	
-	public static void allMoviesByActorMenu() {
-		
-		ConsoleUtils.writeLine("+------------------------------------------------------------------+");
-		ConsoleUtils.writeLine("|                        Type name of actor                        |");
+		ConsoleUtils.writeLine("|                             Add genre                            |");
 		ConsoleUtils.writeLine("+------------------------------------------------------------------+");
 	}
-	
-	public static void insertMovieOrSeriesMenu() {
-		
+
+	public static void insertReservation() {
+
 		ConsoleUtils.writeLine("+------------------------------------------------------------------+");
-		ConsoleUtils.writeLine("|                        Add movie or series                       |");
-		ConsoleUtils.writeLine("+------------------------------------------------------------------+");
-	}
-	
-	public static void insertActorMenu() {
-		
-		ConsoleUtils.writeLine("+------------------------------------------------------------------+");
-		ConsoleUtils.writeLine("|                           Add actor name                         |");
-		ConsoleUtils.writeLine("+------------------------------------------------------------------+");
-	}
-	
-	public static void deleteMovieOrSeriesMenu() {
-		
-		ConsoleUtils.writeLine("+------------------------------------------------------------------+");
-		ConsoleUtils.writeLine("|                      Delete movie or series                      |");
+		ConsoleUtils.writeLine("|                          Reserve a book                          |");
 		ConsoleUtils.writeLine("+------------------------------------------------------------------+");
 	}
 	
@@ -78,27 +50,6 @@ public class ListMenu {
 		
 		ConsoleUtils.writeLine("+------------------------------------------------------------------+");
 		ConsoleUtils.writeLine("|                     Delete personal account                      |");
-		ConsoleUtils.writeLine("+------------------------------------------------------------------+");
-	}
-	
-	public static void deleteUserMenu() {
-		
-		ConsoleUtils.writeLine("+------------------------------------------------------------------+");
-		ConsoleUtils.writeLine("|                           Delete user                            |");
-		ConsoleUtils.writeLine("+------------------------------------------------------------------+");
-	}
-	
-	public static void makeUserAdmin() {
-		
-		ConsoleUtils.writeLine("+------------------------------------------------------------------+");
-		ConsoleUtils.writeLine("|                       Make a user admin                           |");
-		ConsoleUtils.writeLine("+------------------------------------------------------------------+");
-	}
-	
-	public static void insertGenreMenu() {
-		
-		ConsoleUtils.writeLine("+------------------------------------------------------------------+");
-		ConsoleUtils.writeLine("|                           Add genre name                         |");
 		ConsoleUtils.writeLine("+------------------------------------------------------------------+");
 	}
 }

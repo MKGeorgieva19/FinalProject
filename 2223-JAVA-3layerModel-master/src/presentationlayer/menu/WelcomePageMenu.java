@@ -7,7 +7,7 @@ public class WelcomePageMenu {
 	public static void welcomePage() {
 		ConsoleUtils.writeLine("+------------------------------------------------------------------+");
 		ConsoleUtils.writeLine("|                                                                  |");
-		ConsoleUtils.writeLine("|                        WELCOME TO ZOVIES                         |");
+		ConsoleUtils.writeLine("|                             WELCOME                              |");
 		ConsoleUtils.writeLine("|                                                                  |");
 		ConsoleUtils.writeLine("+------------------------------------------------------------------+");
 		ConsoleUtils.writeLine("|                                                                  |");
@@ -18,7 +18,7 @@ public class WelcomePageMenu {
 		ConsoleUtils.writeLine("|                             2. No                                |");
 		ConsoleUtils.writeLine("|                                                                  |");
 		ConsoleUtils.writeLine("+------------------------------------------------------------------+");
-		
+
 		ConsoleUtils.write("Please choose: ");
 	}
 }

@@ -29,12 +29,12 @@ public class RegisterService {
         return correctUser;
     }
 
-	public void insertUser(String username, String password, String address, String phone, String email) throws SQLException {
+	public void insertUser(User user) throws SQLException {
 		
 		String salt = PasswordManager.getNextSalt();
-		password = PasswordManager.hash(password.toCharArray(), salt);
+		user.setPassword(PasswordManager.hash(user.getPassword().toCharArray(), salt));
 		
-		correctUser = usersRepository.insertInto(username, password, address, phone, email);
+		correctUser = usersRepository.insertInto(user);
 	}
 	
 	public void destroyCurrentRegisteredUser() {

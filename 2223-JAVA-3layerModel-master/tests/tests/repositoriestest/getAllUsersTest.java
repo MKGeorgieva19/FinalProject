@@ -1,4 +1,5 @@
-package tests.repositoriestest;
+package repositoriestest;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.sql.SQLException;
@@ -13,10 +14,8 @@ class getAllUsersTest {
 	@Test
 	void getAllUsersTests() throws SQLException {
 		UserRepository test= new UserRepository();
-		List<User>tests=test.getUsers();
+		List<User>tests=test.getAllUsers();
 		assertNotNull(tests);
 		
 	}
-
-	
 }

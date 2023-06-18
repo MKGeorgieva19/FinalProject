@@ -13,38 +13,37 @@ import java.sql.SQLException;
 
 public class MainController {
 	
-	private AuthenticationController authController = new AuthenticationController();
-	private RegisterController registerController = new RegisterController();
+	private static AuthenticationController authController = new AuthenticationController();
+	private static RegisterController registerController = new RegisterController();
 	
 	private AuthenticationService authService;
-	private RegisterService regService;
+	private static RegisterService regService;
 	
 	public MainController() {
         this.authService = AuthenticationService.getInstance();
         this.regService = RegisterService.getInstance();
     }
 
-	public void run() throws SQLException {
+	public static void run() throws SQLException {
 
-		int optionForAccount;
+		int n;
 		
 		WelcomePageMenu.welcomePage();
 		
-		optionForAccount = ConsoleUtils.readInteger();
+		n = ConsoleUtils.readInteger();
 		
-		while(optionForAccount != 1 && optionForAccount != 2) {
+		while(n != 1 && n != 2) {
 			ErrorMenu.invalidInputError();
-			optionForAccount = ConsoleUtils.readInteger();
+			n = ConsoleUtils.readInteger();
 		}
 		
-		if(optionForAccount == 1) {
+		if(n == 1) {
 			
 			AccountMenu.login();
 			authController.run();
-            LoggedUserManagementController loggedUserController = new LoggedUserManagementController();
-			loggedUserController.run();
+            LoggedUserManagementController.run();
 	        
-		} else if(optionForAccount == 2) {
+		} else if(n == 2) {
 			
 			regService.destroyCurrentRegisteredUser();
 			AccountMenu.register();

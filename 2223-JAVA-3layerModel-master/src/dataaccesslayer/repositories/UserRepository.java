@@ -51,7 +51,7 @@ public class UserRepository {
         return mapToUser(resultSet);
     }
 
-    public static boolean insertInto(String username, String password, String address, String phone, String email) throws SQLException {
+    public static boolean insertInto(User user) throws SQLException {
         String commandString = "INSERT INTO Users(Username, [Password], [Address], Phone, Email) VALUES(?, ?, ?, ?, ?)";
         String commandString1 = "SELECT * FROM Users WHERE Username = ?";
 
@@ -59,7 +59,7 @@ public class UserRepository {
              PreparedStatement preparedStatement = conn.prepareStatement(commandString);
              PreparedStatement preparedStatement1 = conn.prepareStatement(commandString1)) {
 
-            preparedStatement1.setString(1, username);
+            preparedStatement1.setString(1, user.getUsername());
 
             ResultSet resultSet = preparedStatement1.executeQuery();
 
@@ -67,11 +67,11 @@ public class UserRepository {
                 return false;
             }
             else {
-                preparedStatement.setString(1, username);
-                preparedStatement.setString(2, password);
-                preparedStatement.setString(3, address);
-                preparedStatement.setString(4, phone);
-                preparedStatement.setString(5, email);
+                preparedStatement.setString(1, user.getUsername());
+                preparedStatement.setString(2, user.getPassword());
+                preparedStatement.setString(3, user.getAddress());
+                preparedStatement.setString(4, user.getPhone());
+                preparedStatement.setString(5, user.getEmail());
 
                 int rs = preparedStatement.executeUpdate();
                 return true;
@@ -99,16 +99,17 @@ public class UserRepository {
         statement.executeUpdate();
     }
 
-    public static void deleteUser(User user) throws SQLException {
-        String commandString = "DELETE FROM Users WHERE Id = ?";
+    public static void deleteUserById(int userId) {
+        String query1 = "DELETE FROM users WHERE UserId = ?";
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement pst1 = conn.prepareStatement(query1)) {
 
-        Connection connection = DBConnection.getConnection();
+            pst1.setInt(1, userId);
 
-        PreparedStatement statement = connection.prepareStatement(commandString);
-
-        statement.setInt(1, user.getId());
-
-        statement.executeUpdate();
+            int rs = pst1.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     public static User mapToUser(ResultSet resultSet) throws SQLException {
@@ -147,4 +148,5 @@ public class UserRepository {
         preparedStatement.setString(1, username);
         return preparedStatement;
     }
+
 }
